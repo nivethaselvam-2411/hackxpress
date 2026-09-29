@@ -1,0 +1,171 @@
+{
+  "app_name": "Last-Mile",
+  "personality": "1 iOS-Native Clean",
+  "personality_one_liner": "A trustworthy, highly legible, and native-feeling mobility app that contrasts a friendly, vibrant passenger experience with a focused, utilitarian driver workflow.",
+  "color": {
+    "surface": "#FFFFFF",
+    "onSurface": "#111827",
+    "surfaceSecondary": "#F3F4F6",
+    "onSurfaceSecondary": "#374151",
+    "surfaceTertiary": "#E5E7EB",
+    "onSurfaceTertiary": "#4B5563",
+    "surfaceInverse": "#1F2937",
+    "onSurfaceInverse": "#F9FAFB",
+    "brand": "#10B981",
+    "brandPrimary": "#10B981",
+    "onBrandPrimary": "#FFFFFF",
+    "brandSecondary": "#374151",
+    "onBrandSecondary": "#FFFFFF",
+    "brandTertiary": "#D1FAE5",
+    "onBrandTertiary": "#064E3B",
+    "success": "#059669",
+    "onSuccess": "#FFFFFF",
+    "warning": "#D97706",
+    "onWarning": "#FFFFFF",
+    "error": "#DC2626",
+    "onError": "#FFFFFF",
+    "info": "#4B5563",
+    "onInfo": "#FFFFFF",
+    "border": "#E5E7EB",
+    "borderStrong": "#D1D5DB",
+    "divider": "#F3F4F6"
+  },
+  "typography": {
+    "displayFontFamily": "Plus Jakarta Sans",
+    "textFontFamily": "Plus Jakarta Sans",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous iOS-native rhythm. Use lg (16pt) for screen padding, md (12pt) between cards, and sticky CTAs with safe area clearance.",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 6,
+    "md": 12,
+    "lg": 20,
+    "pill": 999
+  },
+  "shadow_tier": "1",
+  "navigation": "stack_only",
+  "icon_set": "Ionicons",
+  "glassmorphism": {
+    "enabled": "true",
+    "do's": [
+      "Use blur on bottom sheets (Where to? selector).",
+      "Use blur on sticky CTAs and sticky headers."
+    ],
+    "dont's": [
+      "Avoid blur on individual list rows or dense data cards."
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "AuthAndRole",
+      "purpose": "A clean onboarding screen asking for Name, Phone Number, and a segmented control to enter as Passenger or Driver.",
+      "states": {
+        "loading": "Spinner on primary CTA",
+        "empty": "N/A",
+        "error": "Standard alert toast"
+      },
+      "layout": "Hero image at the top with a gradient scrim. Title 'Last-Mile', simple inputs for Name and Phone. A prominent toggle/pill for Role (Passenger/Driver). 'Continue' sticky at the bottom. Driver side uses brandSecondary (charcoal) accents, Passenger uses brandPrimary (emerald)."
+    },
+    {
+      "name": "PassengerHome",
+      "purpose": "Hub-to-hub selection for the passenger and vehicle tier choice.",
+      "states": {
+        "loading": "N/A",
+        "empty": "N/A",
+        "error": "Error toast if no hubs available"
+      },
+      "layout": "Abstract background route graphic. A persistent glass bottom sheet takes up the lower half. Inside the sheet: Pick-up Hub dropdown, Drop-off Hub dropdown (using Chennai hubs like Ashok Pillar, SRM, DLF). Below that, a horizontal toggle for '3-Seat Auto' vs '4-Seat Cab'. A sticky primary CTA 'Find Shared Ride' anchored at the bottom."
+    },
+    {
+      "name": "PassengerMatchStatus",
+      "purpose": "Shows live pooling status, driver match, large PIN, and SOS actions.",
+      "states": {
+        "loading": "Full-screen 'Finding riders...' view with animated pulsing avatars and node graphics.",
+        "empty": "N/A",
+        "error": "Match failed, retry button."
+      },
+      "layout": "Once matched: Top card shows Driver Avatar, Name, Vehicle Number, and ETA. Middle card is a highly visible 'Ride PIN' block in oversized text. Bottom section shows fare split, shared capacity dots (e.g. 2/3 filled), and sticky bottom buttons for SOS and Share Trip."
+    },
+    {
+      "name": "DriverHome",
+      "purpose": "Driver dashboard showing Online/Offline status and incoming batch requests.",
+      "states": {
+        "loading": "Skeleton rows for incoming requests",
+        "empty": "Illustration of auto/cab with 'You are online. Waiting for nearby hub requests.'",
+        "error": "Connection error banner"
+      },
+      "layout": "Header with 'Go Offline' toggle. Main content is a vertical list of Request Cards. Each card shows: Hub Route (A -> B), Total Passenger Count, Total Fare, and a prominent 'Accept Batch' button. Uses brandSecondary (charcoal) as the primary action color to maintain the utilitarian feel."
+    },
+    {
+      "name": "DriverActiveRide",
+      "purpose": "Managing the accepted batch, checking PINs, and navigating.",
+      "states": {
+        "loading": "N/A",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Header shows current destination hub. A list of passenger rows, each with an Avatar, Name, and an input/verify button for their PIN. Large sticky CTA at the bottom to 'Navigate (Opens Maps)' or 'Complete Hub Run' once all passengers are verified/dropped."
+    }
+  ],
+  "images": {
+    "auth_hero": {
+      "url": "https://images.unsplash.com/photo-1575910149482-cc68b8b7dffe?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NjV8MHwxfHNlYXJjaHwxfHxjaGVubmFpJTIwbWV0cm8lMjBzdGF0aW9ufGVufDB8fHx8MTc4NDI4NjcwMnww&ixlib=rb-4.1.0&q=85",
+      "alt": "Chennai Metro Station"
+    },
+    "passenger_home_bg": {
+      "url": "https://images.unsplash.com/photo-1545987796-200677ee1011?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODF8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMG1hcCUyMHJvdXRlJTIwbm9kZXMlMjBkb3RzJTIwY2xlYW58ZW58MHx8fHwxNzg0Mjg2NzE0fDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Abstract Map Nodes"
+    },
+    "driver_empty_state": {
+      "url": "https://images.unsplash.com/photo-1693845609327-8f64e686e338?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzZ8MHwxfHNlYXJjaHwzfHxhdXRvJTIwcmlja3NoYXclMjBpbmRpYSUyMHN0cmVldHxlbnwwfHx8fDE3ODQyODY3MDJ8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Auto rickshaws on street"
+    },
+    "driver_avatar": {
+      "url": "https://images.unsplash.com/photo-1625241152315-4a698f74ceb7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NjV8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBtYW4lMjBzbWlsaW5nJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzg0Mjg2NzE0fDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Driver Avatar"
+    },
+    "passenger_avatar_1": {
+      "url": "https://images.unsplash.com/photo-1533128361669-69c065857a13?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjB3b21hbiUyMHNtaWxpbmclMjBwb3J0cmFpdHxlbnwwfHx8fDE3ODQyODY3MTN8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Passenger Avatar 1"
+    },
+    "passenger_avatar_2": {
+      "url": "https://images.unsplash.com/photo-1757744705465-ea08b0ddc38a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NjV8MHwxfHNlYXJjaHwyfHxpbmRpYW4lMjBtYW4lMjBzbWlsaW5nJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzg0Mjg2NzE0fDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Passenger Avatar 2"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Build a unified app with a 'AuthAndRole' root screen to toggle between Passenger and Driver flows. This saves creating two separate repositories while achieving the user's goal.",
+    "Enforce visual contrast between roles: Use `brandPrimary` (Emerald Green) for all major buttons and active states in the Passenger flow. Use `brandSecondary` (Charcoal) for the Driver flow to make it feel strictly utilitarian.",
+    "Map-less routing: Since hubs are fixed, use standard vertical timelines (small circles connected by a vertical dashed line) to visualize routes rather than a Google Map integration.",
+    "Implement a polished Bottom Sheet using `@gorhom/bottom-sheet` on the Passenger Home screen.",
+    "Passenger Match Status: Ensure the PIN text is rendered large (using 2xl/3xl scaling) so it's instantly readable from a distance.",
+    "Remember to include gradient scrims (Layer 1 transparent to Layer 2 70% surfaceInverse) underneath text that sits on top of images (e.g. Auth Hero)."
+  ]
+}

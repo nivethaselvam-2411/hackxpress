@@ -1,0 +1,23 @@
+{
+  "summary": "Frontend-only regression + bug-fix verification for /app/frontend/app/onboarding.tsx. Confirmed the TouchableWithoutFeedback wrapper removal resolves the 'im not able to enter name num' bug. Typing works in input-name, input-phone, and input-vehicle. Passenger and Driver flows both navigate correctly. Error state and phone maxLength=10 also verified. No react-native deprecated-package issues detected on this screen.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": ["Playwright inline test executed against https://auto-batch-pool.preview.emergentagent.com"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Console warning noted (non-blocking): '\"shadow*\" style props are deprecated. Use \"boxShadow\".' Originates from SHADOW.card in theme; consider migrating to boxShadow for RN 0.76+ web compatibility.",
+    "Phone input has keyboardType='phone-pad' + maxLength=10 but no numeric-only sanitizer; user could still paste non-digits. Consider onChangeText={(v)=>setPhone(v.replace(/\\D/g,''))}."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "N/A (not tested)", "frontend": "100% (8/8 assertions passed)" },
+  "seed_data_creation": "None. Passwordless onboarding registered TEST users 'Priya Kumar' (passenger) and 'Ravi Driver' (driver, TN09AB1234) via /api/register.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Onboarding bug fully fixed. To reset app state to onboarding, run localStorage.clear() then reload; the root index redirects unauthenticated users to /onboarding. Passenger home renders after successful passenger register; Driver home renders after driver register.",
+  "rca_of_issue": "Root cause (already fixed by main agent): onboarding.tsx previously wrapped the ScrollView with <TouchableWithoutFeedback onPress={Keyboard.dismiss}>. On web/RN, that gesture wrapper captured taps before they reached TextInput children, so tapping name/phone did not focus the input and no keyboard/typing occurred. Removing the wrapper (verified in current file, lines 72-195) restored native focus behavior. Test steps that reproduced+verified: 1) Clear storage → load /, 2) tap input-name and type 'Priya Kumar' → value updates, 3) tap input-phone and type '9876543210' → value updates and maxLength caps at 10, 4) submit empty → error 'Enter your name and a valid 10-digit phone' shown, 5) fill valid + tap continue → routes to /passenger, 6) role-driver reveals input-vehicle → fill + continue routes to /driver."
+}
